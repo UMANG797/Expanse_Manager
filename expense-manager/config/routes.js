@@ -13,5 +13,9 @@ module.exports.routes = {
 'POST /accounts': 'AccountController.create',
 'GET /accounts/delete/:id': 'AccountController.delete',
 
+'GET /transactions/:accountId': 'TransactionController.list',
+'POST /transactions': 'TransactionController.create',
+'GET /transactions/delete/:id': 'TransactionController.delete',
+
 
 };

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transactions</title>
+</head>
+<body>
+
+<h1>Transactions - <%= account.name %></h1>
+
+<form method="POST" action="/transactions">
+  <input type="hidden" name="accountId" value="<%= account.id %>">
+
+  <input type="number" name="amount" placeholder="Amount" required>
+
+  <select name="type" required>
+    <option value="income">Income</option>
+    <option value="expense">Expense</option>
+    <option value="transfer">Transfer</option>
+  </select>
+
+  <input type="text" name="category" placeholder="Category" required>
+
+  <input type="date" name="transactionDate" required>
+
+  <button type="submit">Add Transaction</button>
+</form>
+
+<hr>
+
+<h3>Latest First</h3>
+
+<ul>
+  <% transactions.forEach(function(tx){ %>
+    <li>
+      <strong><%= tx.type.toUpperCase() %></strong> -
+      ₹ <%= tx.amount %> -
+      <%= tx.category %> -
+      <%= new Date(tx.transactionDate).toDateString() %>
+      <a href="/transactions/update/<%= tx.id %>">Update</a>
+      <a href="/transactions/delete/<%= tx.id %>">Delete</a>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/accounts">Back to Accounts</a>
+
+</body>
+</html>

@@ -1,16 +1,19 @@
+const crypto=require('crypto');
+
 module.exports = {
 
   list: async function (req, res) {
     const accounts = await Account.find({
       owner: req.user.userId
     });
-
-    return res.view('accounts', { accounts });
+    console.log(accounts);
+    return res.view('accounts', { accounts:accounts });
   },
 
   create: async function (req, res) {
     const { name } = req.body;
 
+  
     if (!name) {
       return res.send('Account name required');
     }

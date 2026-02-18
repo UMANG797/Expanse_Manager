@@ -15,14 +15,26 @@
 <hr>
 
 <ul>
-  <% accounts.forEach(function(account){ %>
-    <li>
-      <%= account.name %>
-      <a href="/accounts/delete/<%= account.id %>">Delete</a>
-    </li>
-  <% }) %>
+  <% if (accounts && accounts.length > 0) { %>
+    <% accounts.forEach(function(account) { %>
+      <li>
+        <a href="/transactions/<%= account.id %>">
+          <%= account.name %>
+        </a>
+
+        |
+        
+        <a href="/accounts/delete/<%= account.id %>">
+          Delete
+        </a>
+      </li>
+    <% }); %>
+  <% } else { %>
+    <li>No accounts found</li>
+  <% } %>
 </ul>
 
+<br>
 <a href="/dashboard">Back to Dashboard</a>
 
 </body>
