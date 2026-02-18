@@ -2,48 +2,140 @@
 <html>
 <head>
   <title>Transactions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/styles/bootstrap.min.css">
 </head>
-<body>
 
-<h1>Transactions - <%= account.name %></h1>
+<body class="bg-light">
 
-<form method="POST" action="/transactions">
-  <input type="hidden" name="accountId" value="<%= account.id %>">
+<div class="container py-5">
 
-  <input type="number" name="amount" placeholder="Amount" required>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-0">
+        Transactions
+      </h2>
+      <small class="text-muted">
+        Account: <strong><%= account.name %></strong>
+      </small>
+    </div>
 
-  <select name="type" required>
-    <option value="income">Income</option>
-    <option value="expense">Expense</option>
-    <option value="transfer">Transfer</option>
-  </select>
+    <a href="/accounts" class="btn btn-outline-secondary btn-sm">
+      ← Back to Accounts
+    </a>
+  </div>
 
-  <input type="text" name="category" placeholder="Category" required>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Add New Transaction</h5>
 
-  <input type="date" name="transactionDate" required>
+      <form method="POST" action="/transactions">
+        <input type="hidden" name="accountId" value="<%= account.id %>">
 
-  <button type="submit">Add Transaction</button>
-</form>
+        <div class="row g-3">
 
-<hr>
+          <div class="col-md-2">
+            <input type="number"
+                   name="amount"
+                   class="form-control"
+                   placeholder="Amount"
+                   required>
+          </div>
 
-<h3>Latest First</h3>
+          <div class="col-md-2">
+            <select name="type" class="form-select" required>
+              <option value="">Type</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+              <option value="transfer">Transfer</option>
+            </select>
+          </div>
 
-<ul>
-  <% transactions.forEach(function(tx){ %>
-    <li>
-      <strong><%= tx.type.toUpperCase() %></strong> -
-      ₹ <%= tx.amount %> -
-      <%= tx.category %> -
-      <%= new Date(tx.transactionDate).toDateString() %>
-     <a href="/transactions/edit/<%= tx.id %>">Edit</a>
+          <div class="col-md-3">
+            <input type="text"
+                   name="category"
+                   class="form-control"
+                   placeholder="Category"
+                   required>
+          </div>
 
-      <a href="/transactions/delete/<%= tx.id %>">Delete</a>
-    </li>
-  <% }) %>
-</ul>
+          <div class="col-md-3">
+            <input type="date"
+                   name="transactionDate"
+                   class="form-control"
+                   required>
+          </div>
 
-<a href="/accounts">Back to Accounts</a>
+          <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-primary">
+              Add
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <h5 class="card-title mb-3">Latest First</h5>
+
+      <% if (transactions.length > 0) { %>
+
+        <div class="list-group">
+
+          <% transactions.forEach(function(tx){ %>
+
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+
+              <div>
+                <span class="badge 
+                  <%= tx.type === 'income' ? 'bg-success' : 
+                      tx.type === 'expense' ? 'bg-danger' : 
+                      'bg-warning text-dark' %> 
+                  me-2">
+                  <%= tx.type.toUpperCase() %>
+                </span>
+
+                ₹ <strong><%= tx.amount %></strong>
+                <div class="text-muted small">
+                  <%= tx.category %> • 
+                  <%= new Date(tx.transactionDate).toDateString() %>
+                </div>
+              </div>
+
+              <div>
+                <a href="/transactions/edit/<%= tx.id %>"
+                   class="btn btn-sm btn-outline-warning me-2">
+                  Edit
+                </a>
+
+                <a href="/transactions/delete/<%= tx.id %>"
+                   class="btn btn-sm btn-outline-danger">
+                  Delete
+                </a>
+              </div>
+
+            </div>
+
+          <% }) %>
+
+        </div>
+
+      <% } else { %>
+
+        <div class="alert alert-info mb-0">
+          No transactions found.
+        </div>
+
+      <% } %>
+
+    </div>
+  </div>
+
+</div>
 
 </body>
 </html>

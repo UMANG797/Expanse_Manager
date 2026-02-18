@@ -2,31 +2,37 @@
 <html>
 <head>
   <title>Edit Account</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<h1>Edit Account</h1>
+<div class="container py-5">
 
-<form method="POST" action="/accounts/update/<%= account.id %>">
-  <input 
-    type="text" 
-    name="name" 
-    value="<%= account.name %>" 
-    required
-  >
+  <div class="row justify-content-center">
+    <div class="col-md-6">
 
-  <input 
-    type="number" 
-    name="amount" 
-    value="<%= account.amount %>" 
-    required
-  >
+      <div class="card shadow-sm">
+        <div class="card-body">
 
-  <button type="submit">Update</button>
-</form>
+          <h3 class="text-center fw-bold mb-4">
+            Edit Account
+          </h3>
 
-<br>
-<a href="/accounts">Back</a>
+          <form method="POST" action="/accounts/update/<%= account.id %>">
 
-</body>
-</html>
+           
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Account Name</label>
+              <input 
+                type="text"
+                name="name"
+                value="<%= account.name %>"
+                class="form-control"
+                required
+              >
+            </div>
+
+            <div class="mb-4">
+              <label class="form-l
