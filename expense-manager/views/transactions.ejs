@@ -36,7 +36,8 @@
       ₹ <%= tx.amount %> -
       <%= tx.category %> -
       <%= new Date(tx.transactionDate).toDateString() %>
-      <a href="/transactions/update/<%= tx.id %>">Update</a>
+     <a href="/transactions/edit/<%= tx.id %>">Edit</a>
+
       <a href="/transactions/delete/<%= tx.id %>">Delete</a>
     </li>
   <% }) %>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Transaction</title>
+</head>
+<body>
+
+<h1>Edit Transaction</h1>
+
+<form method="POST" action="/transactions/update/<%= transaction.id %>">
+
+  <label>Amount:</label>
+  <input 
+    type="number" 
+    name="amount" 
+    value="<%= transaction.amount %>" 
+    required
+  >
+  <br><br>
+
+  <label>Category:</label>
+  <input 
+    type="text" 
+    name="category" 
+    value="<%= transaction.category %>" 
+    required
+  >
+  <br><br>
+
+  <label>Type:</label>
+  <select name="type" required>
+    <option value="income" <%= transaction.type === 'income' ? 'selected' : '' %>>Income</option>
+    <option value="expense" <%= transaction.type === 'expense' ? 'selected' : '' %>>Expense</option>
+    <option value="transfer" <%= transaction.type === 'transfer' ? 'selected' : '' %>>Transfer</option>
+  </select>
+
+  <br><br>
+
+  <button type="submit">Update</button>
+
+</form>
+
+<br>
+<a href="javascript:history.back()">Back</a>
+
+</body>
+</html>

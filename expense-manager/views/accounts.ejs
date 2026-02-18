@@ -9,6 +9,7 @@
 
 <form method="POST" action="/accounts">
   <input type="text" name="name" placeholder="New Account Name" required>
+  <input type="text" name="amount" placeholder="Enter amount" required>
   <button type="submit">Add</button>
 </form>
 
@@ -21,12 +22,16 @@
         <a href="/transactions/<%= account.id %>">
           <%= account.name %>
         </a>
+        <div>
+          <%= account.amount %>
+        </div>
 
         |
         
         <a href="/accounts/delete/<%= account.id %>">
           Delete
         </a>
+        <a href="/accounts/edit/<%= account.id %>">Update</a>
       </li>
     <% }); %>
   <% } else { %>

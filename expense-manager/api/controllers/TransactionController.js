@@ -50,18 +50,39 @@ module.exports = {
 
     return res.redirect('back');
   },
+edit: async function (req, res) {
+  const { id } = req.params;
 
-  edit: async function(req,res){
-    const {id}=req.params;
+  const transaction = await Transaction.findOne({
+    id,
+    owner: req.user.userId
+  });
 
-    const transaction = await Transaction.findOne({
-      id,
-    })
-
-    if(!transaction)
-    {
-      return res.send("Transaction is not have");
-    }
-    return res.view()
+  if (!transaction) {
+    return res.redirect('/dashboard');
   }
+
+  return res.view('edit-transaction', { transaction });
+},
+
+update: async function (req, res) {
+  const { id } = req.params;
+  const { amount, category, type } = req.body;
+
+  if (!amount || !category || !type) {
+    return res.send('All fields are required');
+  }
+
+  await Transaction.updateOne({
+    id,
+    owner: req.user.userId
+  }).set({
+    amount: Number(amount),
+    category,
+    type
+  });
+
+  return res.redirect('/accounts');
+},
+
 };

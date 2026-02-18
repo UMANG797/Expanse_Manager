@@ -4,34 +4,37 @@ const jwt = require('jsonwebtoken');
 module.exports = {
 
   signup: async function (req, res) {
-    try {
-      const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-      if (!email || !password) {
-        return res.send('Email and password required');
-      }
-
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      const newUser = await User.create({
-        email,
-        password: hashedPassword
-      }).fetch();
-
-
-
-      const defaultAccount = await Account.create({
-  name: email ,
-  owner: newUser.id
-}).fetch();
-
-
-      return res.redirect('/login');
-
-    } catch (err) {
-      return res.send(`Error: ${err.message}`);
+    if (!email || !password) {
+      return res.send('Email and password required');
     }
-  },
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await User.create({
+      email,
+      password: hashedPassword
+    }).fetch();
+
+    await Account.create({
+      name: email,
+      owner: newUser.id
+    });
+
+    // ✅ Send welcome email
+    await sails.helpers.sendWelcomeEmail.with({
+      to: email
+    });
+
+    return res.redirect('/login');
+
+  } catch (err) {
+    console.log(err);
+    return res.send(`Error: ${err.message}`);
+  }
+},
 
   login: async function (req, res) {
     try {

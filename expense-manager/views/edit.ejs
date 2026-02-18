@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Account</title>
+</head>
+<body>
+
+<h1>Edit Account</h1>
+
+<form method="POST" action="/accounts/update/<%= account.id %>">
+  <input 
+    type="text" 
+    name="name" 
+    value="<%= account.name %>" 
+    required
+  >
+
+  <input 
+    type="number" 
+    name="amount" 
+    value="<%= account.amount %>" 
+    required
+  >
+
+  <button type="submit">Update</button>
+</form>
+
+<br>
+<a href="/accounts">Back</a>
+
+</body>
+</html>
