@@ -18,6 +18,14 @@ module.exports = {
         password: hashedPassword
       }).fetch();
 
+
+
+      const defaultAccount = await Account.create({
+  name: email ,
+  owner: newUser.id
+}).fetch();
+
+
       return res.redirect('/login');
 
     } catch (err) {

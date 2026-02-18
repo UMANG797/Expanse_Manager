@@ -4,6 +4,10 @@ module.exports.policies = {
 
   DashboardController: {
     '*': 'isAuthenticated'
+  },
+
+  AccountController: {
+    '*': 'isAuthenticated'
   }
 
 };

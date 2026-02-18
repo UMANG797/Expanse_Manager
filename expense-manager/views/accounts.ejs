@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accounts</title>
+</head>
+<body>
+
+<h1>Your Accounts</h1>
+
+<form method="POST" action="/accounts">
+  <input type="text" name="name" placeholder="New Account Name" required>
+  <button type="submit">Add</button>
+</form>
+
+<hr>
+
+<ul>
+  <% accounts.forEach(function(account){ %>
+    <li>
+      <%= account.name %>
+      <a href="/accounts/delete/<%= account.id %>">Delete</a>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/dashboard">Back to Dashboard</a>
+
+</body>
+</html>

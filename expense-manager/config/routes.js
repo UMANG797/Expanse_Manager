@@ -9,4 +9,9 @@ module.exports.routes = {
 'GET /dashboard': 'DashboardController.index',
 'GET /logout': 'AuthController.logout',
 
+'GET /accounts': 'AccountController.list',
+'POST /accounts': 'AccountController.create',
+'GET /accounts/delete/:id': 'AccountController.delete',
+
+
 };
