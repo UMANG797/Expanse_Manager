@@ -10,14 +10,19 @@ module.exports = {
     if (!email || !password) {
       return res.send('Email and password required');
     }
-
+    if(password.length<8)
+    {
+      return res.send("password must be at least 8 characters");
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    //new user creation
     const newUser = await User.create({
       email,
       password: hashedPassword
     }).fetch();
 
+    //account creation for new user (default account)
     await Account.create({
       name: email,
       owner: newUser.id
@@ -28,6 +33,7 @@ module.exports = {
       to: email
     });
 
+    //redirect to login page after successful signup
     return res.redirect('/login');
 
   } catch (err) {
@@ -36,6 +42,7 @@ module.exports = {
   }
 },
 
+//login handler
   login: async function (req, res) {
     try {
       const { email, password } = req.body;
@@ -59,6 +66,7 @@ module.exports = {
         secure: false, // true in production (HTTPS)
       });
 
+      //redirect to dashboard after successful login
       return res.redirect('/dashboard');
 
     } catch (err) {
@@ -66,8 +74,10 @@ module.exports = {
     }
   },
 
+  //logout handler (delete the token cookie)
   logout: async function (req, res) {
     res.clearCookie('token');
+    //redirect to login page after logout
     return res.redirect('/login');
   }
 

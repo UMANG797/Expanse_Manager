@@ -1,8 +1,9 @@
 module.exports = {
 
+  //listing transactions for a specific account
   list: async function (req, res) {
 
-    const accountId = req.params.accountId;
+    const accountId = req.params.accountId;//get account id from url
 
     const account = await Account.findOne({
       id: accountId,
@@ -17,25 +18,27 @@ module.exports = {
       account: accountId
     }).sort('transactionDate DESC');
 
+    //pass the value towards the view
     return res.view('transactions', {
       account,
       transactions
     });
   },
 
+  //creation of transactions
   create: async function (req, res) {
 
     const { amount, type, category, transactionDate, accountId } = req.body;
 
     await Transaction.create({
       amount,
-      type,
+      type,//enum value (income, expense, transfer)
       category,
       transactionDate,
       account: accountId,
       owner: req.user.userId
     });
-
+    //redirection to transactions page of the same account after creation
     return res.redirect(`/transactions/${accountId}`);
   },
 
@@ -48,11 +51,13 @@ module.exports = {
       owner: req.user.userId
     });
 
+    //redirection to previous page after deletion
     return res.redirect('back');
   },
 edit: async function (req, res) {
   const { id } = req.params;
 
+  
   const transaction = await Transaction.findOne({
     id,
     owner: req.user.userId
