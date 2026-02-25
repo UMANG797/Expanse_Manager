@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+//Data Sore
 module.exports.datastores = {
   default: {
     adapter: 'sails-mongo',
