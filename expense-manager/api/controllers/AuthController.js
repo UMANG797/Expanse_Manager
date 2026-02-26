@@ -25,6 +25,7 @@ module.exports = {
     //account creation for new user (default account)
     await Account.create({
       name: email,
+      amount: 0, // default amount for new account
       owner: newUser.id
     });
 

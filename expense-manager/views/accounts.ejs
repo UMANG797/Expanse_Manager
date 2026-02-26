@@ -69,6 +69,7 @@
                    class="fw-semibold text-decoration-none">
                   <%= account.name %>
                 </a>
+               
                 <div class="text-muted small">
                   Balance: ₹ <%= account.amount %>
                 </div>
@@ -79,6 +80,9 @@
                    class="btn btn-sm btn-warning me-2">
                   Update
                 </a>
+               
+                  <a href="/transactions/<%= account.id %>"  class="btn btn-sm border me-2">See All Transactions</a>
+              
 
                 <a href="/accounts/delete/<%= account.id %>"
                    class="btn btn-sm btn-danger">

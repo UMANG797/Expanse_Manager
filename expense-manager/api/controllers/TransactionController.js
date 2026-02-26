@@ -26,21 +26,25 @@ module.exports = {
   },
 
   //creation of transactions
-  create: async function (req, res) {
+create: async function (req, res) {
 
-    const { amount, type, category, transactionDate, accountId } = req.body;
+  const { amount, type, category, transactionDate, accountId } = req.body;
 
-    await Transaction.create({
-      amount,
-      type,//enum value (income, expense, transfer)
-      category,
-      transactionDate,
-      account: accountId,
-      owner: req.user.userId
-    });
-    //redirection to transactions page of the same account after creation
-    return res.redirect(`/transactions/${accountId}`);
-  },
+  if (!amount || !type || !category || !transactionDate || !accountId) {
+    return res.send("All fields are required");
+  }
+
+  await Transaction.create({
+    amount: Number(amount),
+    type,
+    category,
+    transactionDate,
+    account: accountId,
+    owner: req.user.userId
+  });
+
+  return res.redirect(`/transactions/${accountId}`);
+},
 
   delete: async function (req, res) {
 

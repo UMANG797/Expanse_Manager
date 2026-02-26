@@ -10,10 +10,14 @@ module.exports = {
       type:'number',
       required:true
     },
+    accountNumber: {
+      type: 'string',
+      unique: true,
+      required: true,
+    },
     owner: {
       model: 'user',
       required: true
     }
-
   }
 };

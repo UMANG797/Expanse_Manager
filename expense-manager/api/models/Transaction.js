@@ -1,30 +1,20 @@
+const crypto = require('crypto');
+
 module.exports = {
   attributes: {
 
+    accountId: {
+      type: 'string',
+      unique: true
+    },
+
+    name: {
+      type: 'string',
+      required: true,
+    },
+
     amount: {
       type: 'number',
-      required: true
-    },
-
-    type: {
-      type: 'string',
-      isIn: ['income', 'expense', 'transfer'],
-      required: true
-    },
-
-    category: {
-      type: 'string',
-      required: true
-    },
-
-    transactionDate: {
-      type: 'ref',
-      columnType: 'datetime',
-      required: true
-    },
-
-    account: {
-      model: 'account',
       required: true
     },
 
@@ -33,5 +23,13 @@ module.exports = {
       required: true
     }
 
+  },
+
+  beforeCreate(values, proceed) {
+
+    const id = crypto.randomBytes(6).toString('hex'); 
+    values.accountId = id;
+
+    return proceed();
   }
 };

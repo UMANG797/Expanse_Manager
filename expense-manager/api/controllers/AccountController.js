@@ -23,7 +23,7 @@ module.exports = {
     }
     await Account.create({
       name,
-      amount,
+      amount:Number(amount),
       owner: req.user.userId
     });
 
@@ -52,7 +52,7 @@ module.exports = {
     return res.redirect('/accounts');
   }
 
-  return res.view('edit', { account });
+  return res.view('edit',{layout:false}, { account:account});
 },
 
 update: async function (req, res) {

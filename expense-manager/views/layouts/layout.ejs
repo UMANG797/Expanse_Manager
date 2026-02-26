@@ -52,13 +52,7 @@
           <% if(me) { %>
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/contact">Help</a>
           <!-- Only in desktop nav -->
-          <div class="nav-item dropdown d-none d-sm-block">
-            <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-            <div style="left: auto; right: 0;" class="dropdown-menu" aria-labelledby="header-account-menu-link">
-              <a class="dropdown-item" href="/account">Settings</a>
-              <a class="dropdown-item" href="/logout">Sign out</a>
-            </div>
-          </div>
+         
           <!-- Only in mobile nav -->
           <a class="nav-item nav-link ml-2 mr-2 d-block d-sm-none" href="/account">Account Settings</a>
           <a class="nav-item nav-link ml-2 mr-2 d-block d-sm-none" href="/logout">Sign out</a>
@@ -93,17 +87,6 @@
 
       <%- body %>
 
-      <footer class="navbar navbar-light justify-content-between flex-row-reverse" purpose="page-footer">
-        <div class="nav" purpose="footer-nav">
-          <small class="nav-item d-inline-block"><a class="nav-link text-info px-1 px-sm-3" href="/contact">Contact<span class="d-none d-sm-inline"> us</span></a></small>
-          <small class="nav-item d-inline-block"><a class="nav-link text-info px-1 px-sm-3" href="/legal/terms">Terms<span class="d-none d-sm-inline"> of use</span></a></small>
-          <small class="nav-item d-inline-block"><a class="nav-link text-info px-1 px-sm-3" href="/legal/privacy">Privacy<span class="d-none d-sm-inline"> policy</span></a></small>
-          <% if(me) { %>
-          <small class="nav-item d-inline-block"><a class="nav-link text-info px-1 px-sm-3" href="/logout">Sign out</a></small>
-          <% } %>
-        </div>
-        <small purpose="footer-copy">Copyright &copy; <%= sails.config.custom.platformCopyrightYear %> <a target="_blank" href="NEW_APP_COMPANY_ABOUT_HREF">NEW_APP_COMPANY_NAME</a>. <br class="d-block d-sm-none"/>All rights reserved.</small>
-      </footer>
     </div>
 
 
